@@ -4,12 +4,13 @@ import 'package:path/path.dart';
 
 class Todos {
   static const _dbName = 'todosDatabase.db';
+  static const _tableName = "todos";
   late final Database db;
   List<TodoItem> _todos = [];
   void _onCreate(Database db, int version) async {
     await db.execute(
-      "CREATE TABLE"
-      " todos("
+      "CREATE TABLE "
+      "$_tableName("
       "id TEXT PRIMARY KEY,"
       "title TEXT,"
       "description TEXT,"
