@@ -14,8 +14,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('To-do list'),
       ),
-      body: Center(
-        child: Text('HomeScreen'),
+      body: ListView.builder(
+        itemCount: 9,
+        itemBuilder: (_, __) => Text(
+          DateTime.now().toString(),
+        ),
       ),
     );
   }
