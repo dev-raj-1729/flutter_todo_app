@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/screens/homescreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +13,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ,
+      routes: <String, Widget Function(BuildContext)>{
+        HomeScreen.routeName: (context) => HomeScreen(),
+      },
     );
   }
 }
-
