@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/models/todos.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/';
@@ -10,14 +12,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final todosProvider = Provider.of<Todos>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('To-do list'),
       ),
       body: ListView.builder(
-        itemCount: 9,
-        itemBuilder: (_, __) => Text(
-          DateTime.now().toString(),
+        itemCount: todosProvider.todo.length,
+        itemBuilder: (context, index) => Text(
+          todosProvider.todo[index].title,
         ),
       ),
     );
