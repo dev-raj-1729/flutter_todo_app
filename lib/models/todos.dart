@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class Todos {
+class Todos with ChangeNotifier {
   static const _dbName = 'todosDatabase.db';
   static const _tableName = "todos";
   late final Database db;
@@ -33,8 +34,14 @@ class Todos {
     );
   }
 
-  Todos() {
-    initDatabase();
+  // Todos() {
+  //   initDatabase();
+  // }
+  void addTodoItem(TodoItem todoItem) {
+    _todos.add(todoItem);
   }
-  void addTodoItem(TodoItem todoItem) {}
+
+  List<TodoItem> get todo {
+    return [..._todos];
+  }
 }
