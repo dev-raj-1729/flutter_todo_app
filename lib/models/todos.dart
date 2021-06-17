@@ -39,12 +39,18 @@ class Todos with ChangeNotifier {
   // }
   void addTodoItem(TodoItem todoItem) {
     _todos.add(todoItem);
+    // TODO : Implement record insertion to database
     notifyListeners();
   }
 
   void removeItemById(String id) {
     _todos.removeWhere((element) => element.id == id);
+    // TODO : Implement record deletion from database
     notifyListeners();
+  }
+
+  void fetchAndUpdate() {
+    // TODO : fetch and update todos from database
   }
 
   List<TodoItem> get todo {
