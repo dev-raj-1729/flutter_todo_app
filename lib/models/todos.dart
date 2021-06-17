@@ -39,6 +39,12 @@ class Todos with ChangeNotifier {
   // }
   void addTodoItem(TodoItem todoItem) {
     _todos.add(todoItem);
+    notifyListeners();
+  }
+
+  void removeItemById(String id) {
+    _todos.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
 
   List<TodoItem> get todo {
