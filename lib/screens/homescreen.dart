@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/screens/add_todoscreen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) => Text(
           todosProvider.todo[index].title,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddTodoScreen.routeName);
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/screens/add_todoscreen.dart';
 import 'package:flutter_to_do/screens/homescreen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: <String, Widget Function(BuildContext)>{
           HomeScreen.routeName: (context) => HomeScreen(),
+          AddTodoScreen.routeName: (context) => AddTodoScreen(),
         },
       ),
     );
