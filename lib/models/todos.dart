@@ -1,9 +1,11 @@
+import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class Todos {
   static const _dbName = 'todosDatabase.db';
   late final Database db;
+  List<TodoItem> _todos = [];
   void _onCreate(Database db, int version) async {
     await db.execute(
       "CREATE TABLE"
@@ -13,6 +15,7 @@ class Todos {
       "description TEXT,"
       "label TEXT,"
       "checkbox INTEGER,"
+      "checkboxValue INTEGER,"
       "priority INTEGER,"
       "lastChanged TEXT"
       ")",
@@ -32,4 +35,5 @@ class Todos {
   Todos() {
     initDatabase();
   }
+  void addTodoItem(TodoItem todoItem) {}
 }
