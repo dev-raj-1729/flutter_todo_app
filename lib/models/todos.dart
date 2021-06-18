@@ -56,4 +56,15 @@ class Todos with ChangeNotifier {
   List<TodoItem> get todo {
     return [..._todos];
   }
+
+  List<TodoItem> searchFor(String sub) {
+    return sub.isEmpty
+        ? []
+        : _todos
+            .where(
+              (element) =>
+                  element.title.toLowerCase().startsWith(sub.toLowerCase()),
+            )
+            .toList();
+  }
 }
