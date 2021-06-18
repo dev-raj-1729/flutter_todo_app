@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:flutter_to_do/screens/add_todoscreen.dart';
+import 'package:flutter_to_do/widgets/todo_tile.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,9 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView.builder(
         itemCount: todosProvider.todo.length,
-        itemBuilder: (context, index) => Text(
-          todosProvider.todo[index].title,
-        ),
+        itemBuilder: (context, index) => TodoTile(todosProvider.todo[index]),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
