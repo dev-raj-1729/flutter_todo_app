@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/screens/edit_todo_screen.dart';
 import 'package:flutter_to_do/widgets/alerts.dart';
+import 'package:flutter_to_do/widgets/todo_detail.dart';
 import 'package:provider/provider.dart';
 
 class TodosDetailScreen extends StatelessWidget {
@@ -11,12 +13,18 @@ class TodosDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todoItem = ModalRoute.of(context)?.settings.arguments as TodoItem;
+    final todoItemId = ModalRoute.of(context)?.settings.arguments as String;
+    final todoProvider = Provider.of<Todos>(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed(
+                EditTodoScreen.routeName,
+                arguments: todoProvider.getItemById(todoItemId),
+              );
+            },
             icon: Icon(Icons.edit),
           ),
           IconButton(
@@ -25,8 +33,7 @@ class TodosDetailScreen extends StatelessWidget {
                 (value) {
                   print(value);
                   if (value == true) {
-                    Provider.of<Todos>(context, listen: false)
-                        .removeItemById(todoItem.id);
+                    todoProvider.removeItemById(todoItemId);
                     Navigator.of(context).pop();
                   }
                 },
@@ -42,38 +49,8 @@ class TodosDetailScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                todoItem.title,
-                style: TextStyle(
-                  fontSize: 26,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            Divider(
-              endIndent: 12,
-              color: Colors.black,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              todoItem.description,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[800],
-              ),
-            ),
-          ],
-        ),
+      body: TodoDetail(
+        todoProvider.getItemById(todoItemId),
       ),
     );
   }

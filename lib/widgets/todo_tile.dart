@@ -5,16 +5,21 @@ import 'package:flutter_to_do/screens/todos_detail_screen.dart';
 import 'package:flutter_to_do/widgets/alerts.dart';
 import 'package:provider/provider.dart';
 
-class TodoTile extends StatelessWidget {
+class TodoTile extends StatefulWidget {
   final TodoItem todoItem;
 
   TodoTile(this.todoItem);
 
   @override
+  _TodoTileState createState() => _TodoTileState();
+}
+
+class _TodoTileState extends State<TodoTile> {
+  @override
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (_) => Provider.of<Todos>(context, listen: false)
-          .removeItemById(todoItem.id),
+          .removeItemById(widget.todoItem.id),
       confirmDismiss: (_) => Alerts.confirmDelete(context),
       background: Container(
         color: Theme.of(context).errorColor,
@@ -26,22 +31,24 @@ class TodoTile extends StatelessWidget {
           size: 35,
         ),
       ),
-      key: Key(todoItem.id),
+      key: Key(widget.todoItem.id),
       child: Card(
         elevation: 5,
         borderOnForeground: true,
         child: ListTile(
           title: Text(
-            todoItem.title,
+            widget.todoItem.title,
             overflow: TextOverflow.ellipsis,
           ),
           subtitle: Text(
-            todoItem.description,
+            widget.todoItem.description,
             overflow: TextOverflow.ellipsis,
           ),
           onTap: () {
             Navigator.of(context)
-                .pushNamed(TodosDetailScreen.routeName, arguments: todoItem);
+                .pushNamed(TodosDetailScreen.routeName,
+                    arguments: widget.todoItem.id)
+                .then((value) => setState(() {}));
           },
         ),
       ),
