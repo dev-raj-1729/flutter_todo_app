@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/screens/todos_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class TodoTile extends StatelessWidget {
@@ -14,25 +15,26 @@ class TodoTile extends StatelessWidget {
       onDismissed: (_) => Provider.of<Todos>(context, listen: false)
           .removeItemById(todoItem.id),
       confirmDismiss: (_) => showDialog<bool?>(
-          context: context,
-          builder: (context) => AlertDialog(
-                title: Text('Delete todo?'),
-                content: Text('Are you sure you want to delete this todo?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    child: Text('Yes'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    child: Text('No'),
-                  ),
-                ],
-              )),
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Delete todo?'),
+          content: Text('Are you sure you want to delete this todo?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('No'),
+            ),
+          ],
+        ),
+      ),
       background: Container(
         color: Theme.of(context).errorColor,
         padding: EdgeInsets.only(left: 20),
@@ -50,6 +52,10 @@ class TodoTile extends StatelessWidget {
         child: ListTile(
           title: Text(todoItem.title),
           subtitle: Text(todoItem.description),
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(TodosDetailScreen.routeName, arguments: todoItem);
+          },
         ),
       ),
     );

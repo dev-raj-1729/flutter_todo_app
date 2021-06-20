@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class TodoSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
     return [
       IconButton(
         onPressed: () {
