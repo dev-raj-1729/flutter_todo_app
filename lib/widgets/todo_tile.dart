@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:flutter_to_do/screens/todos_detail_screen.dart';
+import 'package:flutter_to_do/widgets/alerts.dart';
 import 'package:provider/provider.dart';
 
 class TodoTile extends StatelessWidget {
@@ -14,27 +15,7 @@ class TodoTile extends StatelessWidget {
     return Dismissible(
       onDismissed: (_) => Provider.of<Todos>(context, listen: false)
           .removeItemById(todoItem.id),
-      confirmDismiss: (_) => showDialog<bool?>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Delete todo?'),
-          content: Text('Are you sure you want to delete this todo?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text('Yes'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text('No'),
-            ),
-          ],
-        ),
-      ),
+      confirmDismiss: (_) => Alerts.confirmDelete(context),
       background: Container(
         color: Theme.of(context).errorColor,
         padding: EdgeInsets.only(left: 20),
