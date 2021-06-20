@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:flutter_to_do/screens/todos_detail_screen.dart';
+import 'package:flutter_to_do/widgets/todo_form.dart';
 import 'package:provider/provider.dart';
 
 class EditTodoScreen extends StatelessWidget {
@@ -28,7 +29,7 @@ class EditTodoScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text(todoItem.title),
+        child: TodoForm(todoItem),
       ),
     );
   }

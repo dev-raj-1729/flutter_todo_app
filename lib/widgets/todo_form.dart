@@ -4,7 +4,9 @@ import 'package:flutter_to_do/models/todos.dart';
 import 'package:provider/provider.dart';
 
 class TodoForm extends StatefulWidget {
-  const TodoForm({Key? key}) : super(key: key);
+  final TodoItem? todoItem;
+
+  TodoForm([this.todoItem]);
 
   @override
   _TodoFormState createState() => _TodoFormState();
@@ -15,14 +17,24 @@ class _TodoFormState extends State<TodoForm> {
   void _saveForm() {
     if (_formKey.currentState!.validate() == false) return;
     _formKey.currentState!.save();
-    Provider.of<Todos>(context, listen: false).addTodoItem(
-      TodoItem(
-        id: DateTime.now().toIso8601String(),
-        title: _title,
-        lastChanged: DateTime.now(),
-        description: _description,
-      ),
-    );
+    if (widget.todoItem == null) {
+      Provider.of<Todos>(context, listen: false).addTodoItem(
+        TodoItem(
+          id: DateTime.now().toIso8601String(),
+          title: _title,
+          lastChanged: DateTime.now(),
+          description: _description,
+        ),
+      );
+    } else {
+      Provider.of<Todos>(context, listen: false).updateItemById(
+        widget.todoItem!.id,
+        widget.todoItem!.copyWith(
+          title: _title,
+          description: _description,
+        ),
+      );
+    }
     Navigator.of(context).pop();
   }
 
@@ -37,6 +49,7 @@ class _TodoFormState extends State<TodoForm> {
         child: Column(
           children: [
             TextFormField(
+              initialValue: widget.todoItem?.title,
               decoration: InputDecoration(hintText: 'Title'),
               validator: (value) => value == null || value.isEmpty
                   ? 'Please provide a title'
@@ -46,6 +59,7 @@ class _TodoFormState extends State<TodoForm> {
               },
             ),
             TextFormField(
+              initialValue: widget.todoItem?.description,
               keyboardType: TextInputType.multiline,
               minLines: 1,
               maxLines: 5,
