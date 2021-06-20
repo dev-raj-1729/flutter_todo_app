@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/widgets/add_todo_form.dart';
+import 'package:flutter_to_do/widgets/todo_form.dart';
 
 class AddTodoScreen extends StatelessWidget {
   static const routeName = '/add-todo';
@@ -10,7 +10,7 @@ class AddTodoScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Create a todo'),
       ),
-      body: AddTodoForm(),
+      body: TodoForm(),
     );
   }
 }

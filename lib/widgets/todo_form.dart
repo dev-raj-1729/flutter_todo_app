@@ -3,14 +3,14 @@ import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:provider/provider.dart';
 
-class AddTodoForm extends StatefulWidget {
-  const AddTodoForm({Key? key}) : super(key: key);
+class TodoForm extends StatefulWidget {
+  const TodoForm({Key? key}) : super(key: key);
 
   @override
-  _AddTodoFormState createState() => _AddTodoFormState();
+  _TodoFormState createState() => _TodoFormState();
 }
 
-class _AddTodoFormState extends State<AddTodoForm> {
+class _TodoFormState extends State<TodoForm> {
   final _formKey = GlobalKey<FormState>();
   void _saveForm() {
     if (_formKey.currentState!.validate() == false) return;
