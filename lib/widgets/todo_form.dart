@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/models/constants.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:flutter_to_do/screens/todos_detail_screen.dart';
@@ -43,8 +44,10 @@ class _TodoFormState extends State<TodoForm> {
 
   String _title = '';
   String _description = '';
+  int _priority = Priorities.none;
   @override
   Widget build(BuildContext context) {
+    if (widget.todoItem != null) _priority = widget.todoItem!.priority;
     return Form(
       key: _formKey,
       child: Padding(
@@ -70,6 +73,46 @@ class _TodoFormState extends State<TodoForm> {
                 _description = value ?? '';
               },
               decoration: InputDecoration(hintText: 'Description (Optional)'),
+            ),
+            Container(
+              width: double.infinity,
+              height: 100,
+              child: Row(
+                children: [
+                  Text(
+                    'Priority',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    width: 125,
+                    child: DropdownButtonFormField<String>(
+                      value: Priorities.getString(_priority),
+                      onChanged: (value) {},
+                      items: [
+                        DropdownMenuItem<String>(
+                          child: Text(
+                            Priorities.getString(Priorities.high),
+                          ),
+                          value: Priorities.getString(Priorities.high),
+                        ),
+                        DropdownMenuItem<String>(
+                          child: Text(
+                            Priorities.getString(Priorities.low),
+                          ),
+                          value: Priorities.getString(Priorities.low),
+                        ),
+                        DropdownMenuItem<String>(
+                          child: Text(
+                            Priorities.getString(Priorities.none),
+                          ),
+                          value: Priorities.getString(Priorities.none),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
