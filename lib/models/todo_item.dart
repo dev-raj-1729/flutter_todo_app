@@ -31,6 +31,28 @@ class TodoItem {
       "lastChanged": lastChanged.toIso8601String(),
     };
   }
+
+  TodoItem copyWith(
+      {String? id,
+      String? title,
+      String? description,
+      String? label,
+      bool? checkbox,
+      bool? checkboxValue,
+      int? priority,
+      DateTime? lastChanged}) {
+    return TodoItem(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      lastChanged: lastChanged ?? this.lastChanged,
+      checkbox: checkbox ?? this.checkbox,
+      checkboxValue: checkboxValue ?? this.checkboxValue,
+      description: description ?? this.description,
+      label: label ?? this.label,
+      priority: priority ?? this.priority,
+    );
+  }
+
   // TodoItem.fromMap(Map<String,dynamic> map) {
   //   this.checkbox = map['checkbox']
   // }
