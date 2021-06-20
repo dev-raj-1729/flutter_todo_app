@@ -67,4 +67,23 @@ class Todos with ChangeNotifier {
             )
             .toList();
   }
+
+  void updateItemById(String id, TodoItem todoItem) {
+    _todos.forEach((element) {
+      if (element.id == todoItem.id) {
+        element.checkboxValue = todoItem.checkboxValue;
+        element.checkbox = todoItem.checkbox;
+        element.description = todoItem.description;
+        element.label = todoItem.label;
+        element.lastChanged = todoItem.lastChanged;
+        element.priority = todoItem.priority;
+        element.title = todoItem.title;
+      }
+    });
+    notifyListeners();
+  }
+
+  TodoItem getItemById(String id) {
+    return _todos.firstWhere((element) => element.id == id);
+  }
 }
