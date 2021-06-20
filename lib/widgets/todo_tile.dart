@@ -31,8 +31,14 @@ class TodoTile extends StatelessWidget {
         elevation: 5,
         borderOnForeground: true,
         child: ListTile(
-          title: Text(todoItem.title),
-          subtitle: Text(todoItem.description),
+          title: Text(
+            todoItem.title,
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            todoItem.description,
+            overflow: TextOverflow.ellipsis,
+          ),
           onTap: () {
             Navigator.of(context)
                 .pushNamed(TodosDetailScreen.routeName, arguments: todoItem);
