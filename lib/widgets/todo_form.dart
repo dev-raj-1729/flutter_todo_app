@@ -29,6 +29,7 @@ class _TodoFormState extends State<TodoForm> {
           priority: _priority,
         ),
       );
+      Navigator.of(context).pop();
     } else {
       Provider.of<Todos>(context, listen: false).updateItemById(
         widget.todoItem!.copyWith(
@@ -38,11 +39,11 @@ class _TodoFormState extends State<TodoForm> {
           lastChanged: DateTime.now(),
         ),
       );
+      Navigator.of(context).pushReplacementNamed(
+        TodosDetailScreen.routeName,
+        arguments: widget.todoItem!.id,
+      );
     }
-    Navigator.of(context).pushReplacementNamed(
-      TodosDetailScreen.routeName,
-      arguments: widget.todoItem!.id,
-    );
   }
 
   String _title = '';
@@ -90,29 +91,24 @@ class _TodoFormState extends State<TodoForm> {
                     padding: EdgeInsets.all(8),
                     width: 125,
                     child: DropdownButtonFormField<String>(
-                      value: Priorities.getString(_priority),
-                      onChanged: (value) {},
-                      items: [
-                        DropdownMenuItem<String>(
-                          child: Text(
-                            Priorities.getString(Priorities.high),
-                          ),
-                          value: Priorities.getString(Priorities.high),
-                        ),
-                        DropdownMenuItem<String>(
-                          child: Text(
-                            Priorities.getString(Priorities.low),
-                          ),
-                          value: Priorities.getString(Priorities.low),
-                        ),
-                        DropdownMenuItem<String>(
-                          child: Text(
-                            Priorities.getString(Priorities.none),
-                          ),
-                          value: Priorities.getString(Priorities.none),
-                        ),
-                      ],
-                    ),
+                        value: Priorities.getString(_priority),
+                        onChanged: (value) {
+                          _priority = Priorities.fromString(value ?? "none");
+                        },
+                        items: [
+                          Priorities.high,
+                          Priorities.low,
+                          Priorities.none,
+                        ]
+                            .map(
+                              (e) => DropdownMenuItem<String>(
+                                child: Text(
+                                  Priorities.getString(e),
+                                ),
+                                value: Priorities.getString(e),
+                              ),
+                            )
+                            .toList()),
                   ),
                 ],
               ),
