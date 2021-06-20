@@ -26,6 +26,7 @@ class _TodoFormState extends State<TodoForm> {
           title: _title,
           lastChanged: DateTime.now(),
           description: _description,
+          priority: _priority,
         ),
       );
     } else {
@@ -33,6 +34,8 @@ class _TodoFormState extends State<TodoForm> {
         widget.todoItem!.copyWith(
           title: _title,
           description: _description,
+          priority: _priority,
+          lastChanged: DateTime.now(),
         ),
       );
     }
@@ -80,8 +83,8 @@ class _TodoFormState extends State<TodoForm> {
               child: Row(
                 children: [
                   Text(
-                    'Priority',
-                    style: TextStyle(fontSize: 18),
+                    'Priority : ',
+                    style: TextStyle(fontSize: 16),
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
