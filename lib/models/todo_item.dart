@@ -53,7 +53,13 @@ class TodoItem {
     );
   }
 
-  // TodoItem.fromMap(Map<String,dynamic> map) {
-  //   this.checkbox = map['checkbox']
-  // }
+  TodoItem.fromMap(Map<String, dynamic> map)
+      : this.checkbox = map['checkbox'] == 1,
+        this.checkboxValue = map['checkboxValue'] == 1,
+        this.description = map['description'],
+        this.id = map['id'],
+        this.label = map['label'],
+        this.lastChanged = DateTime.parse(map['lastChanged']),
+        this.priority = map['priority'],
+        this.title = map['title'];
 }

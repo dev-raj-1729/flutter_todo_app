@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/screens/todos_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class TodoForm extends StatefulWidget {
@@ -28,14 +29,16 @@ class _TodoFormState extends State<TodoForm> {
       );
     } else {
       Provider.of<Todos>(context, listen: false).updateItemById(
-        widget.todoItem!.id,
         widget.todoItem!.copyWith(
           title: _title,
           description: _description,
         ),
       );
     }
-    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed(
+      TodosDetailScreen.routeName,
+      arguments: widget.todoItem!.id,
+    );
   }
 
   String _title = '';

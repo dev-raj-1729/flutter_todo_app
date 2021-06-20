@@ -6,13 +6,13 @@ import 'package:path/path.dart';
 
 class Todos with ChangeNotifier {
   static const _dbName = 'todosDatabase.db';
-  static const _tableName = "todos";
+  static const _todosTableName = "todos";
   late final Database db;
   List<TodoItem> _todos = [];
   void _onCreate(Database db, int version) async {
     await db.execute(
       "CREATE TABLE "
-      "$_tableName("
+      "$_todosTableName("
       "id TEXT PRIMARY KEY,"
       "title TEXT,"
       "description TEXT,"
@@ -25,7 +25,7 @@ class Todos with ChangeNotifier {
     );
   }
 
-  void initDatabase() async {
+  Future<void> initDatabase() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
     db = await openDatabase(
@@ -35,23 +35,28 @@ class Todos with ChangeNotifier {
     );
   }
 
-  // Todos() {
-  //   initDatabase();
-  // }
+  Todos() {
+    initDatabase().then((value) => fetchAndUpdate());
+  }
   void addTodoItem(TodoItem todoItem) {
     _todos.add(todoItem);
-    // TODO : Implement record insertion to database
+    db.insert(_todosTableName, todoItem.toMap());
     notifyListeners();
   }
 
   void removeItemById(String id) {
     _todos.removeWhere((element) => element.id == id);
-    // TODO : Implement record deletion from database
+    db.delete(_todosTableName, where: 'id==?', whereArgs: [id]);
     notifyListeners();
   }
 
-  void fetchAndUpdate() {
-    // TODO : fetch and update todos from database
+  void fetchAndUpdate() async {
+    _todos = (await db.query(_todosTableName))
+        .map((e) => TodoItem.fromMap(e))
+        .toList();
+    _todos.sort((todoItem1, todoItem2) =>
+        todoItem1.lastChanged.isAfter(todoItem2.lastChanged) ? -1 : 1);
+    notifyListeners();
   }
 
   List<TodoItem> get todo {
@@ -69,7 +74,7 @@ class Todos with ChangeNotifier {
             .toList();
   }
 
-  void updateItemById(String id, TodoItem todoItem) {
+  void updateItemById(TodoItem todoItem) {
     _todos.forEach((element) {
       if (element.id == todoItem.id) {
         element.checkboxValue = todoItem.checkboxValue;
@@ -81,6 +86,8 @@ class Todos with ChangeNotifier {
         element.title = todoItem.title;
       }
     });
+    db.insert(_todosTableName, todoItem.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
     notifyListeners();
   }
 
