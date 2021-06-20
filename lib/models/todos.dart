@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_to_do/models/constants.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -84,6 +85,7 @@ class Todos with ChangeNotifier {
   }
 
   TodoItem getItemById(String id) {
-    return _todos.firstWhere((element) => element.id == id);
+    return _todos.firstWhere((element) => element.id == id,
+        orElse: () => defaultTodo);
   }
 }
