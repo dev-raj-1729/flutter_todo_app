@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todo_item.dart';
+import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/widgets/alerts.dart';
+import 'package:provider/provider.dart';
 
 class TodosDetailScreen extends StatelessWidget {
   static const routeName = '/todos-detail';
@@ -17,7 +20,18 @@ class TodosDetailScreen extends StatelessWidget {
             icon: Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Alerts.confirmDelete(context).then(
+                (value) {
+                  print(value);
+                  if (value == true) {
+                    Provider.of<Todos>(context, listen: false)
+                        .removeItemById(todoItem.id);
+                    Navigator.of(context).pop();
+                  }
+                },
+              );
+            },
             icon: Icon(Icons.delete),
           ),
         ],

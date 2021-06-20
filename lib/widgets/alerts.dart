@@ -10,7 +10,7 @@ class Alerts {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(false);
+              Navigator.of(context).pop(true);
             },
             child: Text('Yes'),
           ),
