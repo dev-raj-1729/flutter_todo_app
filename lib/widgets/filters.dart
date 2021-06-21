@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/models/constants.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,16 @@ class _FiltersState extends State<Filters> {
   bool _priorityHigh = false;
   bool _priorityLow = false;
   bool _priorityNone = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final pList = Provider.of<Todos>(context, listen: false).priorityFilter;
+    _priorityHigh = pList.contains(Priorities.high);
+    _priorityLow = pList.contains(Priorities.low);
+    _priorityNone = pList.contains(Priorities.none);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
