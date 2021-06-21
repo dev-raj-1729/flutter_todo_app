@@ -53,6 +53,12 @@ class _TodoFormState extends State<TodoForm> {
   int _priority = Priorities.none;
   bool _checkbox = false;
   @override
+  void initState() {
+    super.initState();
+    _checkbox = widget.todoItem?.checkbox ?? _checkbox;
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.todoItem != null) _priority = widget.todoItem!.priority;
     return Form(
