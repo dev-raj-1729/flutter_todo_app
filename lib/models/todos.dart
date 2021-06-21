@@ -9,6 +9,7 @@ class Todos with ChangeNotifier {
   static const _todosTableName = "todos";
   late final Database db;
   List<TodoItem> _todos = [];
+  Sort _currentSort = Sort.lastChangedAsc;
   void _onCreate(Database db, int version) async {
     await db.execute(
       "CREATE TABLE "
@@ -41,6 +42,7 @@ class Todos with ChangeNotifier {
   void addTodoItem(TodoItem todoItem) {
     _todos.add(todoItem);
     db.insert(_todosTableName, todoItem.toMap());
+    orderBy(_currentSort);
     notifyListeners();
   }
 
@@ -88,6 +90,7 @@ class Todos with ChangeNotifier {
     });
     db.insert(_todosTableName, todoItem.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+    orderBy(_currentSort);
     notifyListeners();
   }
 
@@ -96,24 +99,27 @@ class Todos with ChangeNotifier {
         orElse: () => defaultTodo);
   }
 
-  void orderBy({bool? lastChangedAscending, bool? priorityAscending}) {
-    assert(lastChangedAscending == null || priorityAscending == null);
-    if (lastChangedAscending != null) {
-      if (lastChangedAscending) {
+  void orderBy(Sort s) {
+    _currentSort = s;
+    switch (s) {
+      case Sort.lastChangedAsc:
         _todos.sort((todoItem1, todoItem2) =>
             todoItem1.lastChanged.isAfter(todoItem2.lastChanged) ? -1 : 1);
-      } else {
+        break;
+      case Sort.lastChangedDesc:
         _todos.sort((todoItem1, todoItem2) =>
             todoItem1.lastChanged.isBefore(todoItem2.lastChanged) ? -1 : 1);
-      }
-    } else if (priorityAscending != null) {
-      if (priorityAscending) {
+        break;
+      case Sort.priorityAsc:
         _todos.sort((todoItem1, todoItem2) =>
             todoItem1.priority < todoItem2.priority ? -1 : 1);
-      } else {
+        break;
+      case Sort.priorityDesc:
         _todos.sort((todoItem1, todoItem2) =>
             todoItem1.priority > todoItem2.priority ? -1 : 1);
-      }
+        break;
+      case Sort.none:
+        break;
     }
     notifyListeners();
   }

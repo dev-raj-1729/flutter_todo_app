@@ -32,5 +32,12 @@ class Priorities {
   }
 }
 
+enum Sort {
+  lastChangedAsc,
+  lastChangedDesc,
+  priorityAsc,
+  priorityDesc,
+  none,
+}
 final defaultTodo =
     TodoItem(id: '0', title: 'Title', lastChanged: DateTime.now());
