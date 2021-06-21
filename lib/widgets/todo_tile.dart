@@ -36,6 +36,20 @@ class _TodoTileState extends State<TodoTile> {
         elevation: 5,
         borderOnForeground: true,
         child: ListTile(
+          leading: widget.todoItem.checkbox
+              ? Checkbox(
+                  value: widget.todoItem.checkboxValue,
+                  onChanged: (value) {
+                    Provider.of<Todos>(context, listen: false).updateItemById(
+                      widget.todoItem.copyWith(checkboxValue: value),
+                    );
+                    setState(() {
+                      widget.todoItem.checkboxValue =
+                          value ?? widget.todoItem.checkboxValue;
+                    });
+                  },
+                )
+              : null,
           title: Text(
             widget.todoItem.title,
             overflow: TextOverflow.ellipsis,

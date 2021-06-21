@@ -27,6 +27,7 @@ class _TodoFormState extends State<TodoForm> {
           lastChanged: DateTime.now(),
           description: _description,
           priority: _priority,
+          checkbox: _checkbox,
         ),
       );
       Navigator.of(context).pop();
@@ -36,6 +37,7 @@ class _TodoFormState extends State<TodoForm> {
           title: _title,
           description: _description,
           priority: _priority,
+          checkbox: _checkbox,
           lastChanged: DateTime.now(),
         ),
       );
@@ -49,6 +51,7 @@ class _TodoFormState extends State<TodoForm> {
   String _title = '';
   String _description = '';
   int _priority = Priorities.none;
+  bool _checkbox = false;
   @override
   Widget build(BuildContext context) {
     if (widget.todoItem != null) _priority = widget.todoItem!.priority;
@@ -60,7 +63,8 @@ class _TodoFormState extends State<TodoForm> {
           children: [
             TextFormField(
               initialValue: widget.todoItem?.title,
-              decoration: InputDecoration(hintText: 'Title'),
+              decoration:
+                  InputDecoration(hintText: 'Title', labelText: 'Title'),
               validator: (value) => value == null || value.isEmpty
                   ? 'Please provide a title'
                   : null,
@@ -76,7 +80,10 @@ class _TodoFormState extends State<TodoForm> {
               onSaved: (value) {
                 _description = value ?? '';
               },
-              decoration: InputDecoration(hintText: 'Description (Optional)'),
+              decoration: InputDecoration(
+                hintText: 'Description',
+                labelText: 'Description (Optional)',
+              ),
             ),
             Container(
               width: double.infinity,
@@ -110,6 +117,22 @@ class _TodoFormState extends State<TodoForm> {
                             )
                             .toList()),
                   ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    'Add a checkbox',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  Checkbox(
+                      value: _checkbox,
+                      onChanged: (value) {
+                        setState(() {
+                          _checkbox = value ?? _checkbox;
+                        });
+                      })
                 ],
               ),
             ),
