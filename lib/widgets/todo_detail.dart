@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/models/constants.dart';
 
 class TodoDetail extends StatelessWidget {
   final todoItem;
@@ -36,6 +37,10 @@ class TodoDetail extends StatelessWidget {
               color: Colors.grey[800],
             ),
           ),
+          SizedBox(
+            height: 15,
+          ),
+          Text('Priority : ${Priorities.getString(todoItem.priority)}'),
         ],
       ),
     );
