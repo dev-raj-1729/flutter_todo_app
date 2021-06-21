@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/constants.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/widgets/filters.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/constants.dart';
+import '../models/todos.dart';
+import 'filters.dart';
 
 class FilterMenuButton extends StatelessWidget {
   const FilterMenuButton({Key? key}) : super(key: key);

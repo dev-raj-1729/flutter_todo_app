@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/widgets/filter_menu_button.dart';
-import 'package:flutter_to_do/widgets/todo_tile.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/todos.dart';
+import 'filter_menu_button.dart';
+import 'todo_tile.dart';
 
 class TodoSearch extends SearchDelegate<String> {
   @override

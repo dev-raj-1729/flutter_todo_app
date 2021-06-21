@@ -1,4 +1,4 @@
-import 'package:flutter_to_do/models/constants.dart';
+import 'constants.dart';
 
 class TodoItem {
   String id;

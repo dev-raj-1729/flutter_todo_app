@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_to_do/models/constants.dart';
-import 'package:flutter_to_do/models/todo_item.dart';
-import 'package:sqflite/sqflite.dart';
+
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+import 'constants.dart';
+import 'todo_item.dart';
 
 class Todos with ChangeNotifier {
   static const _dbName = 'todosDatabase.db';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/screens/add_todoscreen.dart';
-import 'package:flutter_to_do/screens/edit_todo_screen.dart';
-import 'package:flutter_to_do/screens/homescreen.dart';
-import 'package:flutter_to_do/screens/todos_detail_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'models/todos.dart';
+import 'screens/add_todoscreen.dart';
+import 'screens/edit_todo_screen.dart';
+import 'screens/homescreen.dart';
+import 'screens/todos_detail_screen.dart';
 
 void main() {
   runApp(MyApp());

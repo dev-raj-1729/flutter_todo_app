@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/constants.dart';
-import 'package:flutter_to_do/models/todos.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/constants.dart';
+import '../models/todos.dart';
 
 class TodoDetail extends StatefulWidget {
   final todoItem;

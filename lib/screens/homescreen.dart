@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/screens/add_todoscreen.dart';
-import 'package:flutter_to_do/widgets/filter_menu_button.dart';
-import 'package:flutter_to_do/widgets/todo_search.dart';
-import 'package:flutter_to_do/widgets/todo_tile.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/todos.dart';
+import '../widgets/filter_menu_button.dart';
+import '../widgets/todo_search.dart';
+import '../widgets/todo_tile.dart';
+import 'add_todoscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/';

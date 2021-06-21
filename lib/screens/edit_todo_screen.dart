@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todo_item.dart';
 
-import 'package:flutter_to_do/screens/todos_detail_screen.dart';
-import 'package:flutter_to_do/widgets/todo_form.dart';
+import '../models/todo_item.dart';
+import '../widgets/todo_form.dart';
+import 'todos_detail_screen.dart';
 
 class EditTodoScreen extends StatelessWidget {
   static const routeName = '/edit-todo';

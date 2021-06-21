@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todo_item.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/screens/todos_detail_screen.dart';
-import 'package:flutter_to_do/widgets/alerts.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/todo_item.dart';
+import '../models/todos.dart';
+import '../screens/todos_detail_screen.dart';
+import 'alerts.dart';
 
 class TodoTile extends StatefulWidget {
   final TodoItem todoItem;

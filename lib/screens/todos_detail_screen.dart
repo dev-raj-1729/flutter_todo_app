@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/models/todos.dart';
-import 'package:flutter_to_do/screens/edit_todo_screen.dart';
-import 'package:flutter_to_do/widgets/alerts.dart';
-import 'package:flutter_to_do/widgets/todo_detail.dart';
+
 import 'package:provider/provider.dart';
+
+import '../models/todos.dart';
+import '../widgets/alerts.dart';
+import '../widgets/todo_detail.dart';
+import 'edit_todo_screen.dart';
 
 class TodosDetailScreen extends StatelessWidget {
   static const routeName = '/todos-detail';

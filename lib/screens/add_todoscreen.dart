@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/widgets/todo_form.dart';
+
+import '../widgets/todo_form.dart';
 
 class AddTodoScreen extends StatelessWidget {
   static const routeName = '/add-todo';

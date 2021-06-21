@@ -1,4 +1,4 @@
-import 'package:flutter_to_do/models/todo_item.dart';
+import 'todo_item.dart';
 
 class Priorities {
   static const high = 0;
