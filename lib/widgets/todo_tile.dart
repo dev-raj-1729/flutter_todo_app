@@ -48,7 +48,7 @@ class _TodoTileState extends State<TodoTile> {
             Navigator.of(context)
                 .pushNamed(TodosDetailScreen.routeName,
                     arguments: widget.todoItem.id)
-                .then((value) => setState(() {}));
+                .then((_) => setState(() {}));
           },
         ),
       ),
