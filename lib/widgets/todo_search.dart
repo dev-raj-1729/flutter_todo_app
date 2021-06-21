@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/todos.dart';
+import 'package:flutter_to_do/widgets/filter_menu_button.dart';
 import 'package:flutter_to_do/widgets/todo_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +8,7 @@ class TodoSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
+      FilterMenuButton(),
       IconButton(
         onPressed: () {
           query = "";

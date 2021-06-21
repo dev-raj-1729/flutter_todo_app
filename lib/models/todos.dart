@@ -9,6 +9,7 @@ class Todos with ChangeNotifier {
   static const _todosTableName = "todos";
   late final Database db;
   List<TodoItem> _todos = [];
+  List<int> priorityFilter = [];
   Sort _currentSort = Sort.lastChangedAsc;
   void _onCreate(Database db, int version) async {
     await db.execute(
@@ -62,13 +63,13 @@ class Todos with ChangeNotifier {
   }
 
   List<TodoItem> get todo {
-    return [..._todos];
+    return _filterByPriority([..._todos]);
   }
 
   List<TodoItem> searchFor(String sub) {
     return sub.isEmpty
         ? []
-        : _todos
+        : todo
             .where(
               (element) =>
                   element.title.toLowerCase().startsWith(sub.toLowerCase()),
@@ -122,5 +123,29 @@ class Todos with ChangeNotifier {
         break;
     }
     notifyListeners();
+  }
+
+  void setPriorityFilter(
+      {bool? priorityHigh, bool? priorityLow, bool? priorityNone}) {
+    priorityFilter = [];
+    if (priorityHigh == true) {
+      priorityFilter.add(Priorities.high);
+    }
+    if (priorityLow == true) {
+      priorityFilter.add(Priorities.low);
+    }
+    if (priorityNone == true) {
+      priorityFilter.add(Priorities.none);
+    }
+    notifyListeners();
+  }
+
+  List<TodoItem> _filterByPriority(List<TodoItem> todos) {
+    todos.removeWhere((element) {
+      if (priorityFilter.isEmpty || priorityFilter.contains(element.priority))
+        return false;
+      return true;
+    });
+    return todos;
   }
 }
