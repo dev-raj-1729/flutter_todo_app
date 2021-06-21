@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do/models/todos.dart';
+import 'package:provider/provider.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key}) : super(key: key);
@@ -83,7 +85,14 @@ class _FiltersState extends State<Filters> {
           Container(
             alignment: Alignment.bottomRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<Todos>(context, listen: false).setPriorityFilter(
+                  priorityHigh: _priorityHigh,
+                  priorityLow: _priorityLow,
+                  priorityNone: _priorityNone,
+                );
+                Navigator.of(context).pop();
+              },
               child: Text('Ok'),
             ),
           ),
