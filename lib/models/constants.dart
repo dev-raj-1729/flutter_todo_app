@@ -39,5 +39,12 @@ enum Sort {
   priorityDesc,
   none,
 }
+
+enum StatusFilter {
+  complete,
+  incomplete,
+  both,
+}
+
 final defaultTodo =
     TodoItem(id: '0', title: 'Title', lastChanged: DateTime.now());

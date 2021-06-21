@@ -14,7 +14,7 @@ class _FiltersState extends State<Filters> {
   bool _priorityHigh = false;
   bool _priorityLow = false;
   bool _priorityNone = false;
-
+  StatusFilter _statusFilter = StatusFilter.both;
   @override
   void initState() {
     super.initState();
@@ -22,6 +22,7 @@ class _FiltersState extends State<Filters> {
     _priorityHigh = pList.contains(Priorities.high);
     _priorityLow = pList.contains(Priorities.low);
     _priorityNone = pList.contains(Priorities.none);
+    _statusFilter = Provider.of<Todos>(context, listen: false).statusFilter;
   }
 
   @override
@@ -93,15 +94,54 @@ class _FiltersState extends State<Filters> {
               ),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            child: Row(
+              children: [
+                Text(
+                  'Status  ',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                DropdownButton<StatusFilter>(
+                  value: _statusFilter,
+                  onChanged: (value) {
+                    setState(() {
+                      _statusFilter = value ?? _statusFilter;
+                    });
+                  },
+                  items: [
+                    DropdownMenuItem(
+                      value: StatusFilter.both,
+                      child: Text('Both'),
+                    ),
+                    DropdownMenuItem(
+                      value: StatusFilter.complete,
+                      child: Text('Complete'),
+                    ),
+                    DropdownMenuItem(
+                      value: StatusFilter.incomplete,
+                      child: Text('Incomplete'),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
           Container(
             alignment: Alignment.bottomRight,
             child: TextButton(
               onPressed: () {
-                Provider.of<Todos>(context, listen: false).setPriorityFilter(
-                  priorityHigh: _priorityHigh,
-                  priorityLow: _priorityLow,
-                  priorityNone: _priorityNone,
-                );
+                (Provider.of<Todos>(context, listen: false)
+                      ..setPriorityFilter(
+                        priorityHigh: _priorityHigh,
+                        priorityLow: _priorityLow,
+                        priorityNone: _priorityNone,
+                      ))
+                    .setStatusFilter(_statusFilter);
                 Navigator.of(context).pop();
               },
               child: Text('Ok'),

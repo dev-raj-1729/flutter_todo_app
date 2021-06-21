@@ -11,6 +11,8 @@ class Todos with ChangeNotifier {
   List<TodoItem> _todos = [];
   List<int> priorityFilter = [];
   Sort _currentSort = Sort.lastChangedAsc;
+  StatusFilter _statusFilter = StatusFilter.both;
+
   void _onCreate(Database db, int version) async {
     await db.execute(
       "CREATE TABLE "
@@ -63,7 +65,7 @@ class Todos with ChangeNotifier {
   }
 
   List<TodoItem> get todo {
-    return _filterByPriority([..._todos]);
+    return _filterByStatus(_filterByPriority([..._todos]));
   }
 
   List<TodoItem> searchFor(String sub) {
@@ -147,5 +149,31 @@ class Todos with ChangeNotifier {
       return true;
     });
     return todos;
+  }
+
+  void setStatusFilter(StatusFilter statusFilter) {
+    _statusFilter = statusFilter;
+    notifyListeners();
+  }
+
+  StatusFilter get statusFilter {
+    return _statusFilter;
+  }
+
+  List<TodoItem> _filterByStatus(List<TodoItem> todo) {
+    switch (_statusFilter) {
+      case StatusFilter.both:
+        break;
+      case StatusFilter.complete:
+        todo.removeWhere(
+          (element) => !(element.checkbox && element.checkboxValue),
+        );
+        break;
+      case StatusFilter.incomplete:
+        todo.removeWhere(
+          (element) => !(element.checkbox && (!element.checkboxValue)),
+        );
+    }
+    return todo;
   }
 }
