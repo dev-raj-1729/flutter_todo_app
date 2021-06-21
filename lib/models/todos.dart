@@ -176,4 +176,10 @@ class Todos with ChangeNotifier {
     }
     return todo;
   }
+
+  void clearFilters() {
+    _statusFilter = StatusFilter.both;
+    priorityFilter = [];
+    notifyListeners();
+  }
 }
