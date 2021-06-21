@@ -95,4 +95,26 @@ class Todos with ChangeNotifier {
     return _todos.firstWhere((element) => element.id == id,
         orElse: () => defaultTodo);
   }
+
+  void orderBy({bool? lastChangedAscending, bool? priorityAscending}) {
+    assert(lastChangedAscending == null || priorityAscending == null);
+    if (lastChangedAscending != null) {
+      if (lastChangedAscending) {
+        _todos.sort((todoItem1, todoItem2) =>
+            todoItem1.lastChanged.isAfter(todoItem2.lastChanged) ? -1 : 1);
+      } else {
+        _todos.sort((todoItem1, todoItem2) =>
+            todoItem1.lastChanged.isBefore(todoItem2.lastChanged) ? -1 : 1);
+      }
+    } else if (priorityAscending != null) {
+      if (priorityAscending) {
+        _todos.sort((todoItem1, todoItem2) =>
+            todoItem1.priority < todoItem2.priority ? -1 : 1);
+      } else {
+        _todos.sort((todoItem1, todoItem2) =>
+            todoItem1.priority > todoItem2.priority ? -1 : 1);
+      }
+    }
+    notifyListeners();
+  }
 }
