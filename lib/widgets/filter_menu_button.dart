@@ -46,6 +46,14 @@ class FilterMenuButton extends StatelessWidget {
                   context: context, builder: (context) => Filters());
             },
           ),
+        ),
+        PopupMenuItem(
+          child: ListTile(
+            title: Text('Clear Filters'),
+            onTap: () {
+              Provider.of<Todos>(context, listen: false).clearFilters();
+            },
+          ),
         )
       ],
     );
