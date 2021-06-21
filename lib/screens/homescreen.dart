@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do/models/constants.dart';
 import 'package:flutter_to_do/models/todos.dart';
 import 'package:flutter_to_do/screens/add_todoscreen.dart';
+import 'package:flutter_to_do/widgets/filters.dart';
 import 'package:flutter_to_do/widgets/todo_search.dart';
 import 'package:flutter_to_do/widgets/todo_tile.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              PopupMenuItem(
+                child: ListTile(
+                  title: Text('Filters'),
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context, builder: (context) => Filters());
+                  },
+                ),
+              )
             ],
           )
         ],
